@@ -1,0 +1,16 @@
+name: Job Summary Example
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v2
+      with:
+        distribution: zulu
+        java-version: 8
+        cache: maven
+    - run: mvn -B verify
+    - run: cat japicmp-testbase/japicmp-test-maven-plugin-guava/target/japicmp/japicmp.md >> $GITHUB_STEP_SUMMARY
